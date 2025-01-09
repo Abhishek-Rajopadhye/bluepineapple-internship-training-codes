@@ -1,0 +1,47 @@
+Large Buildiung - x floor
+Many lifts - y lifts
+OOPS/OOD for efficient lift operation
+
+Lift:
+    properties:
+        liftName
+        currentFloor
+        direction
+        destinations(list) list of floor names
+    methods:
+        moveUp() inc floor using up pntr, if dest reached in appropriate direction remove dest
+        moveDown() dec floor using down pntr, if dest reached in appropriate direction remove dest
+        addDestination(floorName) append to destinations
+        getFloor
+        getDirection
+        getLiftName
+
+Floor:
+    properties:
+        floorName
+        direction pressed
+        up pntr
+        down pntr
+    methods:
+        callLift(direction)
+
+Building:
+    properties:
+        map of lift objs with liftnames
+        map of floor objs with floornames
+    methods:
+        manageLifts()
+            if no lifts
+                already optimized, use the stairs bro
+            if lift already on floor address the floor
+            if lift is idle send lifts to equidistant floors.
+                one on ground, one on top. If only one lift, send to ground. others equidistant from each other
+            for lift moving up, address lower floors, and up direction
+                group close floor together and in same direction(eg group floors 3, 5, and 8 with direction up with first stop at 3)(close = +-5, may need to change with floor quantity)
+                if capacity filled move until first destination and people loaded off
+            for lift moving down address upper floors, and down direction
+                group close floor together and in same direction(eg group floors 31, 35, and 36 with direction down with first stop at 36)(close = +-5, may need to change with floor quantity)
+                if capacity filled move until first destination and people loaded off
+            if lift near ground floor address floors upper to lift or up direction first.
+            if lift near top floor address floors lower to lift or down direction first.
+            if lift near middle address group with most number first.
