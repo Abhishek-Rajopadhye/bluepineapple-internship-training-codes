@@ -10,9 +10,10 @@ class Book{
         string book_name;
         int number_of_copies;
     public:
-        Book(string author, string book_name){
+        Book(string author, string book_name, int number_of_copies){
             this->author = author;
             this->book_name = book_name;
+            this->number_of_copies = number_of_copies;
         }
         string getAuthor(){
             return this->author;
@@ -23,10 +24,10 @@ class Book{
         int getNumberOfCopies(){
             return this->number_of_copies;
         }
-        void allocateBook(){
+        void allocatedBook(){
             this->number_of_copies--;
         }
-        void deallocateBook(){
+        void deallocatedBook(){
             this->number_of_copies++;
         }
         void printBook(){
@@ -34,18 +35,18 @@ class Book{
             cout<<"Author: "<<this->author<<endl;
             cout<<"Number of copies: "<<this->number_of_copies<<endl;
         }
-}
+};
 
 
 class BookManagement{
     private:
-        map<string, Book> books;
-        int count;
+        //map documentation used for reference
+        map<string, Book*> books;
+        int count = 0;
     public:
         void addBook(string author, string book_name, int number_of_copies){
-            Book book(author, book_name);
-            book.number_of_copies = number_of_copies;
-            this->books.insert(pair<string, Book>(book_name, book));
+            Book *book = new Book(author, book_name, number_of_copies);
+            this->books.insert(std::pair<string, Book*>(book_name, book));
             this->count++;
         }
 
@@ -62,7 +63,7 @@ class BookManagement{
             if(this->books.find(book_name) == this->books.end()){
                 cout<<"Book not found"<<endl;
             }else{
-                this->books[book_name].allocateBook();
+                this->books[book_name]->allocatedBook();
             }
         }
 
@@ -70,25 +71,27 @@ class BookManagement{
             if(this->books.find(book_name) == this->books.end()){
                 cout<<"Book not found"<<endl;
             }else{
-                this->books[book_name].deallocateBook();
+                this->books[book_name]->deallocatedBook();
             }
         }
 
-        Book* getBook(string book_name){
+        void getBook(string book_name){
             if(this->books.find(book_name) == this->books.end()){
                 cout<<"Book not found"<<endl;
-                return NULL;
+                return;
             }else{
-                return &this->books[book_name];
+                this->books[book_name]->printBook();
+                return;
             }
         }
 
         void printAllBooks(){
-            for(int i=0; i<this->count; i++){
-                this->books[i].printBook();
+            //found iteration code on google
+            for(auto it = this->books.begin(); it != this->books.end(); ++it){
+                it->second->printBook();
             }
         }
-}
+};
 
 void displayMenu() {
     cout << "Book Management System" << endl;
@@ -97,62 +100,72 @@ void displayMenu() {
     cout << "3. Allocate Book" << endl;
     cout << "4. Deallocate Book" << endl;
     cout << "5. Search Book" << endl;
-    cout << "6. Exit" << endl;
+    cout << "6. List All Books" << endl;
+    cout << "7. Exit" << endl;
     cout << "Enter your choice: ";
 }
 
 int main(){
     BookManagement bookManagement;
-
-    while(True){
-
+    string author, book_name;
+    int number_of_copies;
+    int choice;
+    while(true){
         displayMenu();
-        int choice;
         cin>>choice;
-
+        if(choice == 7){
+            break;
+        }
         switch(choice){
             case 1:
-                string author, book_name;
-                int number_of_copies;
-                cout<<"Enter author name: ";
-                cin>>author;
-                cout<<"Enter book name: ";
-                cin>>book_name;
-                cout<<"Enter number of copies: ";
-                cin>>number_of_copies;
-                bookManagement.addBook(author, book_name, number_of_copies);
+                {
+                    cout<<"Enter author name: ";
+                    cin>>author;
+                    cout<<"Enter book name: ";
+                    cin>>book_name;
+                    cout<<"Enter number of copies: ";
+                    cin>>number_of_copies;
+                    bookManagement.addBook(author, book_name, number_of_copies);
+                }
                 break;
             case 2:
-                string book_name;
-                cout<<"Enter book name: ";
-                cin>>book_name;
-                bookManagement.deleteBook(book_name);
+                {
+                    cout<<"Enter book name: ";
+                    cin>>book_name;
+                    bookManagement.deleteBook(book_name);
+                }
                 break;
             case 3:
-                string book_name;
-                cout<<"Enter book name: ";
-                cin>>book_name;
-                bookManagement.allocateBook(book_name);
+                {
+                    cout<<"Enter book name: ";
+                    cin>>book_name;
+                    bookManagement.allocateBook(book_name);
+                }
                 break;
             case 4:
-                string book_name;
-                cout<<"Enter book name: ";
-                cin>>book_name;
-                bookManagement.deallocateBook(book_name);
+                {
+                    cout<<"Enter book name: ";
+                    cin>>book_name;
+                    bookManagement.deallocateBook(book_name);
+                }
                 break;
             case 5:
-                string book_name;
-                cout<<"Enter book name: ";
-                cin>>book_name;
-                Book* book = bookManagement.getBook(book_name);
-                if(book != NULL){
-                    book->printBook();
+                {
+                    cout<<"Enter book name: ";
+                    cin>>book_name;
+                    bookManagement.getBook(book_name);
                 }
                 break;
             case 6:
+                {
+                    bookManagement.printAllBooks();
+                }
                 break;
             default:
-                cout<<"Invalid choice"<<endl;
+                {
+                    cout<<"Invalid choice"<<endl;
+                }                
+                break;
         }
     }
     cout<<"Exiting Program"<<endl;
