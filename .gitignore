@@ -1,2 +1,4 @@
 .ccls-cache
 .replit
+.\Day6\__pycache__
+.\Day6\*.db
