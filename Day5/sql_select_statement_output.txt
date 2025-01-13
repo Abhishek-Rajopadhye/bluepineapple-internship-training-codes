@@ -1,0 +1,29 @@
+1|Lift 1|Up|0|10
+2|Lift 2|Up|0|10
+3|Lift 3|Down|0|10
+4|Lift 4||0|10
+
+1|Floor 1|Up
+2|Floor 2|Up
+3|Floor 3|Up/Down
+4|Floor 4|Down
+5|Floor 5|
+6|Floor 6|
+7|Floor 7|Up
+8|Floor 8|
+9|Floor 9|
+10|Floor 10|Up/Down
+11|Floor 11|
+12|Floor 12|
+13|Floor 13|
+14|Floor 14|Down
+
+Lift 1|Floor 1
+Lift 2|Floor 11
+Lift 3|Floor 14
+Lift 4|Floor 4
+
+1
+1
+1
+1
