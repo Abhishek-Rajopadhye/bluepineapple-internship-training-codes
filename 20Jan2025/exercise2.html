@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>Exercise 2</title>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <td rowspan="3">Day</td><td colspan="3">Seminar</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Schedule</td><td rowspan="3">Topic</td>
+                </tr>
+                <tr>
+                    <td>Begin</td><td>End</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2">Monday</td>
+                    <td rowspan="2" class="yellow">8:00 am</td>
+                    <td rowspan="2" class="purple">5:00 pm</td>
+                    <td>Introduction to XML</td>
+                </tr>
+                <tr>
+                    <td>Validity: DTD and Relax NG</td>
+                </tr>
+
+                <tr>
+                    <td rowspan="6">Tuesday</td>
+                    <td rowspan="2" class="yellow">8:00 am</td>
+                    <td rowspan="2" class="yellow">11:00</td>
+                    <td rowspan="3">Xpath</td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                <td rowspan="2" class="yellow">11:00 am</td>
+                <td rowspan="2" class="green">2:00 pm</td>
+                </tr>
+                <tr>
+                <td rowspan="3">Transformations</td>
+                </tr>
+                <tr>
+                <td rowspan="2" class="green">2:00 pm</td>
+                <td rowspan="2" class="purple">5:00 pm</td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td class="yellow">8:00 am</td>
+                    <td class="green">11:00</td>
+                    <td>XSL Formatting Objects</td>
+                </tr>
+            </tbody>
+        </table>
+        <style>
+            table {
+                width: 100%;
+                border: solid black;
+            }
+            th, td {
+                border: 2px black;
+                border-style: double;
+                padding: 8px;
+                text-align: center;
+            }
+            .yellow {
+                background-color: #ffffcc;
+            }
+            .green {
+                background-color: #ccffcc;
+            }
+            .purple {
+                background-color: #e0b0ff;
+            }
+        </style>
+    </body>
+</html>
