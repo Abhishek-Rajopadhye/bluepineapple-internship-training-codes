@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title>Custom Table Component</title>
+  <style>
+    .bordered {
+      border-collapse: collapse;
+      border: 1px solid black;
+    }
+
+    .bordered th, .bordered td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+
+    .alt-row-color tbody tr:nth-child(even) {
+      background-color: lightgrey;
+    }
+
+    .caption-bordered {
+      border-top: 1px solid black;
+      border-right: 1px solid black;
+      border-left: 1px solid black;
+    }
+
+    .delete-row {
+      color: red;
+      cursor: pointer;
+    }
+
+    .row-form {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <form id="tableForm">
+    <label for="columns">Column Names (comma separated):</label>
+    <input type="text" id="columns" name="columns" required>
+    <br>
+    <label for="border">Border:</label>
+    <input type="checkbox" id="border" name="border">
+    <br>
+    <label for="altRowColor">Alternate Row Color:</label>
+    <input type="checkbox" id="altRowColor" name="altRowColor">
+    <br>
+    <label for="caption">Caption:</label>
+    <input type="text" id="caption" name="caption">
+    <br>
+    <button type="submit">Create Table</button>
+  </form>
+  <div id="table-container"></div>
+
+  <script src="assignment_custom_table.js"></script>
+</body>
+</html>
+

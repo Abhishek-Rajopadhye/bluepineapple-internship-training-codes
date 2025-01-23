@@ -1,0 +1,74 @@
+Implement a custom table component.
+Must have column names as input.
+Rows as a 2D array data.
+Columns attribute as array. It sets column names of the table.
+Border attribute as boolean. It sets/removes border of the table. If caption is given add top, right and left caption borders.
+Alternative row color attribute as boolean. It sets/removes alternative row color. Each row is either white or light grey. If not set only white.
+Caption attribute. It adds caption to the table. Caption must be at the top of the table.
+Click on cell entries to change data. use of double click event. On double click cell must be editable ie. an input field will appear with current cell value as current value. With changes applied On enter key press data must be changed. Input field must disappear and new data must be displayed.
+Can add new row on click of a button. Below the table. On click a form for the row data should be displayed. On submit form must be deleted and row must be added to the table. 
+Can delete a row on click of a button. Must be Beside the row. On click row must be removed.
+Make use of CSS in template/custom component. Use of classes for border, alt-color. Add class on true values and remove class on false values.
+
+HTML:
+<form id="tableForm"></form>
+        <label for="columns">Column Names (comma separated):</label>
+        <input type="text" id="columns" name="columns" required>
+        <br>
+        <label for="border">Border:</label>
+        <input type="checkbox" id="border" name="border">
+        <br>
+        <label for="altRowColor">Alternate Row Color:</label>
+        <input type="checkbox" id="altRowColor" name="altRowColor">
+        <br>
+        <button type="submit">Create Table</button>
+</form>
+<div id="table-container"></div>
+
+
+JS:
+    on submit of form tableForm add custom table using form data as details/attributes for custom table inside of table-container div.
+    
+    Table:
+        attributes: columns, rows, border, alt-row-color, caption.
+        methods: addRow, deleteRow, editCellData.
+        callbacks: onAttributeChangedCallback.
+        observeAttributes: border, alt-row-color.
+        define as 'custom-table'
+        constructor() {
+            super();
+            this.columns = [];
+            this.rows = [];
+            this.border = false;
+            this.altRowColor = false;
+            this.caption = '';
+            this.table = document.createElement('table');
+        }
+
+        connectedCallback() {
+            this.render();
+        }
+
+        render() {
+            // Render table with columns and rows
+            // Add border and alt-row-color classes based on attributes
+            // Add caption if present
+        }
+
+        addRow() {
+            // Display form for row data
+            // On submit add row to the table
+            // Append rowData to this.rows
+        }
+
+        deleteRow(index) {
+            // Delete row from the table and from this.rows
+        }
+
+        editCellData() {
+            // Edit cell data on double click.
+            // Get indices of row and column of the cell
+            // Edit data in this.rows using the indices
+        }
+
+        customElements.define('custom-table', Table);
