@@ -1,3 +1,5 @@
+import math
+import random
 class BinarySearchTree:
     def __init__(self,val=None):
         self.value = val
@@ -28,9 +30,33 @@ class BinarySearchTree:
         if self.isempty():
             return False
         if self.value == value:
-            print("{} is found".format(value))
+            print(str(value) + " is found")
             return True
         if value < self.value:
             return self.left.search(value)
         else:
             return self.right.search(value)
+
+btree = BinarySearchTree()
+randomList = [random.randint(1, 100) for i in range(10)]
+
+for number in randomList:
+    btree.insert(number)
+
+print("Numbers inserted: ", randomList)
+
+search = randomList[random.randint(0, 9)]
+searcherror = 9999999
+
+print("Searching for " + str(search))
+returnvalue = btree.search(search)
+
+if not returnvalue:
+    print(str(search) + " is not found")
+
+print("Searching for " + str(searcherror))
+returnvalueerror = btree.search(searcherror)
+
+if not returnvalueerror:
+    print(str(searcherror) + " is not found")
+
