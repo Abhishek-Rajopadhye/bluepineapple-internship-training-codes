@@ -82,9 +82,11 @@ app.use((err, req, res, next) => {
     res.status(500).send("Something went wrong!");
 });
 
-//  Made error handling routing. On any request for end url anything other than those that are declared send 404 with message "Route not found"
-//  On any other error send 500 error with message "Something went wrong!"
-
+/*
+    Made error handling routing. On any request for end url anything other than those that
+    are declared send 404 with message "Route not found"
+    On any other error send 500 error with message "Something went wrong!"
+*/
 
 app.listen(3000, () => {
     console.log("Server is running on http://localhost:3000");
