@@ -69,4 +69,11 @@ fetchData()
 });
 
 
-
+/*
+    Made calculator class. Initialized result as 0. With the add, subtract, multiply and divide functions operate on result with
+    respective operations and with given numbers.
+    Made the function chain to chain operations/function calls to execute in sequence. Printing result to console.
+    Made fetchData function. Demonstrates Promise functionality. If the promise is resolved then after 2 seconds return 
+    "Data fetched successfully" to caller, else return "Error fetching data" on rejection. Using then and catch on fetchData
+    to make appropriate actions for resolve and reject respectively.
+*/

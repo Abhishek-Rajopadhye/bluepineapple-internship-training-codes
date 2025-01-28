@@ -1,3 +1,5 @@
 This is a log file
 New log
 New log
+New log
+New log

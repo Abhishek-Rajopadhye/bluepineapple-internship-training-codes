@@ -53,3 +53,11 @@ async function getComments() {
 
 Promise.all([getPosts(), getComments()]);
 
+/*
+    Modified fetchData to make use of try and catch instead of then and catch. Functionality is similar to before.
+    getPosts and getComments make use of axios to get data from external site "jsonplaceholder.typicode.com". Using
+    slice command get only first 5 of the resulting data receieved.
+    Then print the 5 posts/comments to console.
+    Promise.all is used with getPosts() and getComments() in a list/array as its parameters. This will use promise resolve, reject
+    functionality for both the functions.
+*/
