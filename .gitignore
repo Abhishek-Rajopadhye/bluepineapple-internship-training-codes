@@ -4,3 +4,4 @@
 .\Day6\*.db
 Day6/library.db
 Day6/__pycache__/library.cpython-312.pyc
+*\node_modules
