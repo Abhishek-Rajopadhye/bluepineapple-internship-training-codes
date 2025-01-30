@@ -23,7 +23,7 @@ function App(){
     setUserDataRender(false);
   }
   
-  /** Making a function to toggle all modules except list to false */
+  /** Making a function to toggle all modules except counter to false */
   function getCounterElement(){
     setListRender(false);
     setCounterRender(true);
@@ -32,7 +32,7 @@ function App(){
     setUserDataRender(false);
   }
 
-  /** Making a function to toggle all modules except list to false */
+  /** Making a function to toggle all modules except sibling communication to false */
   function getCommunicationElement(){
     setListRender(false);
     setCounterRender(false);
@@ -41,7 +41,7 @@ function App(){
     setUserDataRender(false);
   }
 
-  /** Making a function to toggle all modules except list to false */
+  /** Making a function to toggle all modules except focus element to false */
   function getFocusElement(){
     setListRender(false);
     setCounterRender(false);
@@ -50,7 +50,7 @@ function App(){
     setUserDataRender(false);
   }
 
-  /** Making a function to toggle all modules except list to false */
+  /** Making a function to toggle all modules except user data to false */
   function getUserDataElement(){
     setListRender(false);
     setCounterRender(false);
