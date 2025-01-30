@@ -7,12 +7,14 @@ import FocusModule from "./FocusInput"
 import UserDataModule from "./UserDataFetch"
 
 function App(){
+  /** Making render boolean variables for each module using useState */
   const [listRender, setListRender] = useState(false);
   const [counterRender, setCounterRender] = useState(false);
   const [communicationRender, setCommunicationRender] = useState(false);
   const [focusRender, setFocusRender] = useState(false);
   const [userDataRender, setUserDataRender] = useState(false);
 
+  /** Making a function to toggle all modules except list to false */
   function getListElement(){
     setListRender(true);
     setCounterRender(false);
@@ -21,6 +23,7 @@ function App(){
     setUserDataRender(false);
   }
   
+  /** Making a function to toggle all modules except list to false */
   function getCounterElement(){
     setListRender(false);
     setCounterRender(true);
@@ -28,7 +31,8 @@ function App(){
     setFocusRender(false);
     setUserDataRender(false);
   }
-  
+
+  /** Making a function to toggle all modules except list to false */
   function getCommunicationElement(){
     setListRender(false);
     setCounterRender(false);
@@ -37,6 +41,7 @@ function App(){
     setUserDataRender(false);
   }
 
+  /** Making a function to toggle all modules except list to false */
   function getFocusElement(){
     setListRender(false);
     setCounterRender(false);
@@ -45,6 +50,7 @@ function App(){
     setUserDataRender(false);
   }
 
+  /** Making a function to toggle all modules except list to false */
   function getUserDataElement(){
     setListRender(false);
     setCounterRender(false);
@@ -52,6 +58,10 @@ function App(){
     setFocusRender(false);
     setUserDataRender(true);
   }
+
+  /** Returning the componenets. On button click with the module name it toggles the module render boolean variable.
+   *  Then using the boolean variables to conditionally render the various modules.
+   */
   return (
     <>
       <button onClick={getListElement}>List</button>
@@ -69,5 +79,5 @@ function App(){
   );
 }
 
-
+/** Exporting the app to render */
 export default App;
