@@ -1,8 +1,11 @@
 def numOfDigits(number):
     power = 1
+    
     while(10**power < number):
         power += 1
+
     return power
+
 onesMap = {
     1:"One", 2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9:"Nine"
 }
@@ -12,14 +15,18 @@ tensAMap = {
 tensBMap = {
     2:"Twenty", 3:"Thirty", 4:"Forty", 5:"Fifty", 6:"Sixty", 7:"Seventy", 8:"Eighty", 9:"Ninety"
 }
+
 number = int(input("Enter a number: "))
 length = numOfDigits(number)
 numsplit = []
+
 for i in range(length):
     numsplit.insert(0, int(number%10))
     number = int(number/10)
+
 word = ""
 place = length
+
 for i in range(len(numsplit)):
     if(place %2 != 0 or place==2):
         if(place == 2):
@@ -44,8 +51,8 @@ for i in range(len(numsplit)):
             word += " Lakhs"
     elif(place == 4):
         word += " Thousand"
-    word += " "
 
+    word += " "
     place -= 1
 
 print(word)

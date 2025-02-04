@@ -16,11 +16,11 @@ class CustomTable extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'border') {
-        this.border = newValue === 'true';
+            this.border = newValue === 'true';
         } else if (name === 'alt-row-color') {
-        this.altRowColor = newValue === 'true';
+            this.altRowColor = newValue === 'true';
         } else if (name === 'caption') {
-        this.caption = newValue || '';
+            this.caption = newValue || '';
         }
         this.render();
     }
@@ -35,20 +35,21 @@ class CustomTable extends HTMLElement {
 
         // Add caption if present
         if (this.caption) {
-        const caption = document.createElement('caption');
-        caption.textContent = this.caption;
-        caption.className = this.border ? 'caption-bordered' : '';
-        this.table.appendChild(caption);
+            const caption = document.createElement('caption');
+            caption.textContent = this.caption;
+            caption.className = this.border ? 'caption-bordered' : '';
+            this.table.appendChild(caption);
         }
 
         // Add table header
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         this.columns.forEach(col => {
-        const th = document.createElement('th');
-        th.textContent = col;
-        headerRow.appendChild(th);
+            const th = document.createElement('th');
+            th.textContent = col;
+            headerRow.appendChild(th);
         });
+
         const deleteHeader = document.createElement('th');
         deleteHeader.textContent = 'Actions';
         headerRow.appendChild(deleteHeader);
@@ -58,25 +59,26 @@ class CustomTable extends HTMLElement {
         // Add table body
         const tbody = document.createElement('tbody');
         this.rows.forEach((row, rowIndex) => {
-        const tr = document.createElement('tr');
-        row.forEach(cell => {
-            const td = document.createElement('td');
-            td.textContent = cell;
-            td.ondblclick = () => this.editCell(td, rowIndex, row.indexOf(cell));
-            tr.appendChild(td);
+            const tr = document.createElement('tr');
+            row.forEach(cell => {
+                const td = document.createElement('td');
+                td.textContent = cell;
+                td.ondblclick = () => this.editCell(td, rowIndex, row.indexOf(cell));
+                tr.appendChild(td);
+            });
+
+            // Add delete button
+            const actionTd = document.createElement('td');
+            const deleteBtn = document.createElement('span');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.className = 'delete-row';
+            deleteBtn.onclick = () => this.deleteRow(rowIndex);
+            actionTd.appendChild(deleteBtn);
+            tr.appendChild(actionTd);
+
+            tbody.appendChild(tr);
         });
 
-        // Add delete button
-        const actionTd = document.createElement('td');
-        const deleteBtn = document.createElement('span');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.className = 'delete-row';
-        deleteBtn.onclick = () => this.deleteRow(rowIndex);
-        actionTd.appendChild(deleteBtn);
-        tr.appendChild(actionTd);
-
-        tbody.appendChild(tr);
-        });
         this.table.appendChild(tbody);
 
         // Apply border and alt row color
@@ -89,18 +91,18 @@ class CustomTable extends HTMLElement {
     editCell(td, rowIndex, colIndex) {
         const currentValue = td.textContent;
         const input = document.createElement('input');
+
         input.type = 'text';
         input.value = currentValue;
         td.textContent = '';
         td.appendChild(input);
 
         input.onkeydown = (e) => {
-        if (e.key === 'Enter') {
-            this.rows[rowIndex][colIndex] = input.value;
-            this.render();
-        }
+            if (e.key === 'Enter') {
+                this.rows[rowIndex][colIndex] = input.value;
+                this.render();
+            }
         };
-
         input.focus();
     }
 
@@ -145,11 +147,14 @@ tableForm.onsubmit = (e) => {
         ${columns.map(col => `<input type="text" placeholder="${col}" required>`).join('')}
         <button type="submit">Add Row</button>
     `;
+    
     addRowForm.onsubmit = (event) => {
         event.preventDefault();
+
         const rowData = Array.from(addRowForm.querySelectorAll('input')).map(input => input.value);
         customTable.addRow(rowData);
         addRowForm.reset();
     };
+    
     tableContainer.appendChild(addRowForm);
 };

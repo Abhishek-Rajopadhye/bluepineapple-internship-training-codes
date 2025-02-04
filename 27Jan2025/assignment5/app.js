@@ -1,22 +1,3 @@
-/*
-    Assignment 5: Express and Middleware
-    Objective: Build a basic REST API using Express and implement middleware.
-        Set up an Express app:
-            Create routes for:
-                GET / – Respond with "Welcome to Express!"
-                POST /data – Accept JSON data and respond with "Data received."
-                GET /users – Respond with a list of users (mock data).
-        Create middleware:
-            Write a custom middleware to log the method and URL of every incoming request.
-            Use app.use() to apply it globally.
-        Error handling:
-            Add a 404 middleware to handle invalid routes and respond with a custom message.
-            Add an error-handling middleware to log errors and send a "Something went wrong!" response.
-        Bonus (Optional):
-            Connect the app to the https://jsonplaceholder.typicode.com API.
-            Add a route GET /external-posts that fetches posts from the external API and responds with the data.
-*/
-
 const express = require("express");
 const axios = require("axios");
 

@@ -15,7 +15,9 @@ def getDivisors(number):
     return divisors
 
 number = int(input("Enter a number: "))
+
 print(getDivisors(number))
+
 if(isPerfect(number, getDivisors(number)) == True):
     print("The number is Perfect")
 else:

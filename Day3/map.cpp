@@ -13,18 +13,23 @@ public:
         this->value = value;
         this->next = NULL;
     }
+
     string getKey() {
         return this->key;
     }
+
     string getValue() {
         return this->value;
     }
+    
     Node* getNext() {
         return this->next;
     }
+
     void setNext(Node* next) {
         this->next = next;
     }
+
     void setValue(string value) {
         this->value = value;
     }
@@ -39,6 +44,7 @@ public:
         this->root = NULL;
         this->count = 0;
     }
+
     void insert(string key, string value) {
         Node* newNode = new Node(key, value);
         if (this->root == NULL || this->root->getKey() > key) {
@@ -54,6 +60,7 @@ public:
         }
         this->count++;
     }
+
     void remove(string key) {
         if (this->root == NULL) {
             cout << "Map is empty" << endl;
@@ -77,6 +84,7 @@ public:
             cout << "Key not found" << endl;
         }
     }
+
     void update(string key, string value) {
         if (this->root == NULL) {
             cout << "Map is empty" << endl;
@@ -92,9 +100,11 @@ public:
             cout << "Key not found" << endl;
         }
     }
+
     int getCount() {
         return this->count;
     }
+
     string getValue(string key) {
         if (this->root == NULL) {
             cout << "Map is empty" << endl;
@@ -110,6 +120,7 @@ public:
         }
         return "";
     }
+
     string* getKeys() {
         string* keys = new string[this->count];
         Node* temp = this->root;
@@ -120,12 +131,11 @@ public:
         }
         return keys;
     }
-
-
 };
 
 int main() {
     Map map;
+
     map.insert("aa", "aaaa");
     map.insert("ab", "aabb");
     map.insert("ac", "aacc");
@@ -138,9 +148,12 @@ int main() {
     map.insert("f", "f");
     map.insert("g", "g");
     map.insert("h", "h");
+
     cout << "Count: " << map.getCount() << endl;
+
     for(int i=0; i<map.getCount(); i++) {
         cout << map.getKeys()[i] << " : " << map.getValue(map.getKeys()[i]) << endl;
     }
+
     return 0;
 }

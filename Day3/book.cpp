@@ -18,18 +18,23 @@ class Book{
         string getAuthor(){
             return this->author;
         }
+
         string getBookName(){
             return this->book_name;
         }
+        
         int getNumberOfCopies(){
             return this->number_of_copies;
         }
+        
         void allocatedBook(){
             this->number_of_copies--;
         }
+        
         void deallocatedBook(){
             this->number_of_copies++;
         }
+        
         void printBook(){
             cout<<"Book Name: "<<this->book_name<<endl;
             cout<<"Author: "<<this->author<<endl;
@@ -110,6 +115,7 @@ int main(){
     string author, book_name;
     int number_of_copies;
     int choice;
+
     while(true){
         displayMenu();
         cin>>choice;
@@ -168,6 +174,7 @@ int main(){
                 break;
         }
     }
+    
     cout<<"Exiting Program"<<endl;
     return 0;
 }

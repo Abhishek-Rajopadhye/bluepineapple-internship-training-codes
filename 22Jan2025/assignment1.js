@@ -13,7 +13,9 @@ console.log("Name: " + myName);
 console.log("Age: " + age);
 console.log("Is Student: " + isStudent);
 console.log("Hobbies: ");
+
 hobbies.forEach(element => {
     console.log(element);
 });
+
 console.log("Details Obj:", details);

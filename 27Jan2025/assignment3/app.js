@@ -1,19 +1,3 @@
-/*
-    Assignment 3: Function Chaining and Promises 
-    Objective: Practice chaining methods and working with promises. 
-        Create a Calculator class:
-            Add methods add(num), subtract(num), multiply(num), and divide(num). 
-            Each method should update the internal value and return this to allow chaining. 
-            Include a getResult() method to retrieve the final result. 
-            Example:
-                const calc = new Calculator(); 
-                calc.add(5).subtract(2).multiply(3).divide(2).getResult(); // Output: 4.5 
-        Implement a function fetchData() that: 
-            Returns a promise simulating an API call with setTimeout. 
-            Resolves with "Data fetched successfully" after 2 seconds or rejects with an error message if something goes wrong. 
-            Use .then() and .catch() to handle the promise. 
-*/
-
 class Calculator {
     constructor() {
         this.result = 0;
@@ -61,13 +45,12 @@ function fetchData() {
 }
 
 fetchData()
-.then((data) => {
-    console.log(data);
-})
-.catch((error) => {
-    console.log(error);
-});
-
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 
 /*
     Made calculator class. Initialized result as 0. With the add, subtract, multiply and divide functions operate on result with

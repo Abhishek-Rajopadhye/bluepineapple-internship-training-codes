@@ -2,8 +2,10 @@ class TimeFormatted extends HTMLElement{
     constructor(){
         super();
     }
+
     connectedCallback(){
         let date = new Date(this.getAttribute('datetime') || Date.now());
+        
         this.innerHTML = new Intl.DateTimeFormat("default", {
             year: this.getAttribute('year') || undefined,
             month: this.getAttribute('month') || undefined,

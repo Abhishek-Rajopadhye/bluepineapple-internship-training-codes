@@ -1,19 +1,3 @@
-/*
-    Assignment 4: Async/Await and API Integration 
-    Objective: Work with async/await and understand how to handle asynchronous operations in Node.js. 
-        Modify the fetchData() function from Assignment 3: 
-            Rewrite it using async/await. 
-            Include error handling with try/catch. 
-        Fetch data from a public API:
-            Use the node-fetch or axios package to fetch JSON data from https://jsonplaceholder.typicode.com/posts. 
-            Write an async function getPosts() to:  
-                Fetch the posts. 
-                Log the first 5 posts with their title and body. 
-        Simulate multiple API calls: 
-            Fetch data from two different endpoints of the API in parallel (e.g., /posts and /comments). 
-            Use Promise.all to wait for both responses and log the results. 
-*/
-
 axios = require('axios');
 
 async function fetchData() {
@@ -30,6 +14,7 @@ async function fetchData() {
         console.log(result);
     } catch (error) {
         console.error(error);
+        throw new Error(error);
     }
 }
 

@@ -1,5 +1,5 @@
-import math
 import random
+
 class BinarySearchTree:
     def __init__(self,val=None):
         self.value = val
@@ -29,6 +29,7 @@ class BinarySearchTree:
     def search(self, value):
         if self.isempty():
             return False
+        
         if self.value == value:
             print(str(value) + " is found")
             return True

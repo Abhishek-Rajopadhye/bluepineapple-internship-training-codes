@@ -20,9 +20,11 @@ def printBooks(books):
     for book in books:
         printBook(book)
 
+lib = library.Library()
+
 printMenu()
 choice = int(input("Enter your choice: "))
-lib = library.Library()
+
 while choice != 7:
     if choice == 1:
         title = input("Enter title: ")

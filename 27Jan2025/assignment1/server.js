@@ -1,11 +1,3 @@
-/*
-    Assignment 1: Node.js Basics 
-    Objective: Understand Node.js modules, require, exports, and the basics of creating a server. 
-        Create a Node.js file called server.js: 
-            Import the http module using require. 
-            Create a server that listens on port 3000 and responds with "Welcome to Node.js!" for any request. 
-*/
-
 const http = require('http');
 const helper = require('./helper');
 
