@@ -79,7 +79,18 @@ const App = () => {
     };
 
     const handleAllocateBook = async (bookIsbn, memberId) => {
-        await fetchApi(`/allocateBook/${bookIsbn}&${memberId}`, { method: 'PUT' });
+        const fromDate = prompt('Enter From Date (YYYY-MM-DD):');
+        const toDate = prompt('Enter To Date (YYYY-MM-DD):');
+        
+        if (!fromDate || !toDate) {
+            alert('Both dates are required for allocation!');
+            return;
+        }
+        
+        await fetchApi(`/allocateBook/${bookIsbn}&${memberId}`, {
+            method: 'PUT',
+            body: JSON.stringify({ from_date: fromDate, to_date: toDate }),
+        });
         fetchData();
     };
 
@@ -160,73 +171,65 @@ const App = () => {
 
     const BookDetails = ({ book }) => {
         const allocatedMembers = members.filter(member => 
-        member.allocated_books.includes(book.isbn)
+            member.allocated_books.some(allocation => allocation.book_isbn === book.isbn)
         );
-
+    
         return (
-        <div className="space-y-4">
-            <h3 className="text-xl font-bold">{book.name}</h3>
-            <div>
-            <p><strong>ISBN:</strong> {book.isbn}</p>
-            <p><strong>Author:</strong> {book.author}</p>
-            <p><strong>Total Copies:</strong> {book.total_copies}</p>
-            <p><strong>Allocated Copies:</strong> {book.allocated_copies}</p>
+            <div className="space-y-4">
+                <h3 className="text-xl font-bold">{book.name}</h3>
+                <p><strong>ISBN:</strong> {book.isbn}</p>
+                <p><strong>Author:</strong> {book.author}</p>
+                <p><strong>Total Copies:</strong> {book.total_copies}</p>
+                <p><strong>Allocated Copies:</strong> {book.allocated_copies}</p>
+                <h4 className="font-bold">Allocation Details:</h4>
+                <ul>
+                    {allocatedMembers.map(member => {
+                        const allocation = member.allocated_books.find(a => a.book_isbn === book.isbn);
+                        return (
+                            <li key={member.id} className="flex justify-between items-center">
+                                <span>{member.name} (From: {allocation.from_date}, To: {allocation.to_date})</span>
+                                <button
+                                    onClick={() => handleDeallocateBook(book.isbn, member.id)}
+                                    className="bg-red-500 text-white px-2 py-1 rounded"
+                                >
+                                    Deallocate
+                                </button>
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
-            <div>
-            <h4 className="font-bold">Allocated Members:</h4>
-            <ul className="space-y-2">
-                {allocatedMembers.map(member => (
-                <li key={member.id} className="flex justify-between items-center">
-                    <span>{member.name}</span>
-                    <button
-                    onClick={() => {
-                        handleDeallocateBook(book.isbn, member.id);
-                        fetchData();
-                    }}
-                    className="bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                    Deallocate
-                    </button>
-                </li>
-                ))}
-            </ul>
-            </div>
-        </div>
         );
     };
 
     const MemberDetails = ({ member }) => {
-        const allocatedBooks = books.filter(book => 
-        member.allocated_books.includes(book.isbn)
-        );
-
         return (
-        <div className="space-y-4">
-            <h3 className="text-xl font-bold">{member.name}</h3>
-            <div>
-            <p><strong>ID:</strong> {member.id}</p>
-            <p><strong>Allocated Books:</strong> {member.allocated_books.length}</p>
+            <div className="space-y-4">
+                <h3 className="text-xl font-bold">{member.name}</h3>
+                <div>
+                    <p><strong>ID:</strong> {member.id}</p>
+                    <p><strong>Allocated Books:</strong> {member.allocated_books.length}</p>
+                </div>
+                <div>
+                    <h4 className="font-bold">Allocated Books:</h4>
+                    <ul className="space-y-2">
+                        {member.allocated_books.map(book => (
+                            <li key={book.isbn} className="flex justify-between items-center">
+                                <span>{book.name} (From: {book.from_date} To: {book.to_date})</span>
+                                <button
+                                    onClick={() =>{ 
+                                        handleDeallocateBook(book.isbn, member.id);
+                                        fetchData();
+                                    }}
+                                    className="bg-red-500 text-white px-2 py-1 rounded"
+                                >
+                                    Deallocate
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-            <div>
-            <h4 className="font-bold">Allocated Books:</h4>
-            <ul className="space-y-2">
-                {allocatedBooks.map(book => (
-                <li key={book.isbn} className="flex justify-between items-center">
-                    <span>{book.name}</span>
-                    <button
-                    onClick={() =>{ 
-                        handleDeallocateBook(book.isbn, member.id);
-                        fetchData();
-                    }}
-                    className="bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                    Deallocate
-                    </button>
-                </li>
-                ))}
-            </ul>
-            </div>
-        </div>
         );
     };
 
