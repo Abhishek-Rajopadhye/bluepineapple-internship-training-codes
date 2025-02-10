@@ -1,12 +1,18 @@
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
+from typing import Dict, List
 import json
 
 app = FastAPI()
 
 BOOKS_FILE = "../storage/books.json"
 MEMBERS_FILE = "../storage/members.json"
+
+class AllocationDetails(BaseModel):
+    id: str
+    from_date: str
+    to_date: str
 
 class Book(BaseModel):
     isbn: str
@@ -18,7 +24,7 @@ class Book(BaseModel):
 class Member(BaseModel):
     id: int
     name: str
-    allocated_books: list
+    allocated_books: List[AllocationDetails]
     
 def loadData(fileName):
     with open(fileName, "r") as fileData:
@@ -94,7 +100,7 @@ def addMember(member:Member):
 @app.put("/members/{member_id}")
 def updateMember(member_id:int, memberData:Member):
     members = loadData(MEMBERS_FILE)
-    jsonMemberData = jsonable_encoder(member)
+    jsonMemberData = jsonable_encoder(memberData)
     for member in members["members"]:
         if(member["id"] == member_id):
             member["name"] = jsonMemberData["name"]
@@ -114,37 +120,52 @@ def deleteMember(member_id):
     return "Success"
 
 @app.put("/allocateBook/{book_isbn}&{member_id}")
-def allocateBook(member_id:int, book_isbn:str):
+def allocateBook(member_id: int, book_isbn: str, from_date: str, to_date: str):
     members = loadData(MEMBERS_FILE)
     books = loadData(BOOKS_FILE)
     
     for member in members["members"]:
-        if(member["id"] == member_id):
-            if(book_isbn in member["allocated_books"]):
-                return "Book already allocated"
-            member["allocated_books"].append(book_isbn)
+        if member["id"] == member_id:
+            # Check if the book is already allocated
+            for book in member["allocated_books"]:
+                if book["id"] == book_isbn:
+                    return {"error": "Book already allocated to this member"}
+
+            # Append new allocation
+            member["allocated_books"].append({
+                "id": book_isbn,
+                "from_date": from_date,
+                "to_date": to_date
+            })
+    
     saveData(MEMBERS_FILE, members)
-        
+    
     for book in books["books"]:
-        if(book["isbn"] == book_isbn):
+        if book["isbn"] == book_isbn:
             book["allocated_copies"] += 1
+    
     saveData(BOOKS_FILE, books)
 
-    return "Success"
+    return {"message": "Success"}
+
 
 @app.put("/deallocateBook/{book_isbn}&{member_id}")
-def deallocateBook(member_id:int, book_isbn:str):
+def deallocateBook(member_id: int, book_isbn: str):
     members = loadData(MEMBERS_FILE)
     books = loadData(BOOKS_FILE)
     
     for book in books["books"]:
-        if(book["isbn"] == book_isbn):
+        if book["isbn"] == book_isbn:
             book["allocated_copies"] -= 1
     saveData(BOOKS_FILE, books)
 
     for member in members["members"]:
-        if(member["id"] == member_id):
-            member["allocated_books"].remove(book_isbn)
+        if member["id"] == member_id:
+            # Find and remove the allocated book entry
+            member["allocated_books"] = [
+                book for book in member["allocated_books"] if book["id"] != book_isbn
+            ]
+
     saveData(MEMBERS_FILE, members)
     
-    return "Success"
+    return {"message": "Success"}

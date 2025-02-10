@@ -226,6 +226,7 @@ app.delete('/members/:id', async (req, res) => {
 app.put('/allocateBook/:isbn&:memberId', async (req, res) => {
     try {
         const { isbn, memberId } = req.params;
+        const { from_date, to_date } = req.body; // Get rental period from request
         const membersData = await loadData(MEMBERS_FILE);
         const booksData = await loadData(BOOKS_FILE);
 
@@ -243,11 +244,14 @@ app.put('/allocateBook/:isbn&:memberId', async (req, res) => {
             return res.status(400).json({ error: 'No copies available for allocation' });
         }
 
-        if (member.allocated_books.includes(isbn)) {
+        // Check if the book is already allocated to this member
+        const existingAllocation = member.allocated_books.find(entry => entry.id === isbn);
+        if (existingAllocation) {
             return res.status(400).json({ error: 'Book already allocated to this member' });
         }
 
-        member.allocated_books.push(isbn);
+        // Allocate book
+        member.allocated_books.push({ id: isbn, from_date, to_date });
         book.allocated_copies += 1;
 
         await saveData(MEMBERS_FILE, membersData);
@@ -257,6 +261,7 @@ app.put('/allocateBook/:isbn&:memberId', async (req, res) => {
         res.status(500).json({ error: 'Failed to allocate book' });
     }
 });
+
 
 app.put('/deallocateBook/:isbn&:memberId', async (req, res) => {
     try {
@@ -274,12 +279,15 @@ app.put('/deallocateBook/:isbn&:memberId', async (req, res) => {
             return res.status(404).json({ error: 'Book not found' });
         }
 
-        const bookIndex = member.allocated_books.indexOf(isbn);
-        if (bookIndex === -1) {
+        // Remove the book from allocated list
+        const prevAllocatedLength = member.allocated_books.length;
+        member.allocated_books = member.allocated_books.filter(entry => entry.id !== isbn);
+
+        if (member.allocated_books.length === prevAllocatedLength) {
             return res.status(400).json({ error: 'Book not allocated to this member' });
         }
 
-        member.allocated_books.splice(bookIndex, 1);
+        // Reduce allocated copies count
         book.allocated_copies = Math.max(0, book.allocated_copies - 1);
 
         await saveData(MEMBERS_FILE, membersData);
