@@ -1,0 +1,18 @@
+{
+    "books": [
+        {
+            "isbn": "NCOirnwpdoj1u23094",
+            "name": "Book1",
+            "author": "Author1",
+            "total_copies": 10,
+            "allocated_copies": 0
+        },
+        {
+            "isbn": "NOWK39904u-12",
+            "name": "BookAnon",
+            "author": "Author1",
+            "total_copies": 10,
+            "allocated_copies": 0
+        }
+    ]
+}
