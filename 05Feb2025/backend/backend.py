@@ -3,11 +3,26 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from typing import Dict, List
 import json
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 BOOKS_FILE = "../storage/books.json"
 MEMBERS_FILE = "../storage/members.json"
+
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class AllocationDetails(BaseModel):
     id: str
@@ -87,15 +102,30 @@ def deleteBook(book_isbn):
 def getMembers():
     return loadData(MEMBERS_FILE)
 
-@app.post("/member")
-def addMember(member:Member):
+@app.get("/members/{member_id}")
+def getMember(member_id:int):
+    members = loadData(MEMBERS_FILE)
+    returnMember = {}
+    for member in members["members"]:
+        if(member["id"] == member_id):
+            returnMember = member
+    return returnMember
+
+@app.post("/members")
+def addMember(member_data: Dict):
     global member_id
     members = loadData(MEMBERS_FILE)
-    jsonMemberData = jsonable_encoder(member)
-    members.append(jsonMemberData)
+    print(member_data)
+    memberData = {
+        "id": member_id,
+        "name": member_data['member_name'],
+        "allocated_books": []
+    }
+    jsonMemberData = jsonable_encoder(memberData)
+    members["members"].append(jsonMemberData)
     member_id += 1
     saveData(MEMBERS_FILE, members)
-    return member
+    return memberData
 
 @app.put("/members/{member_id}")
 def updateMember(member_id:int, memberData:Member):
@@ -119,8 +149,8 @@ def deleteMember(member_id):
     members["members"].remove(memberToDelete)
     return "Success"
 
-@app.put("/allocateBook/{book_isbn}&{member_id}")
-def allocateBook(member_id: int, book_isbn: str, from_date: str, to_date: str):
+@app.put("/allocateBook/{book_isbn}/{member_id}")
+def allocateBook( book_isbn: str, allocation_data: Dict):
     members = loadData(MEMBERS_FILE)
     books = loadData(BOOKS_FILE)
     
@@ -134,8 +164,8 @@ def allocateBook(member_id: int, book_isbn: str, from_date: str, to_date: str):
             # Append new allocation
             member["allocated_books"].append({
                 "id": book_isbn,
-                "from_date": from_date,
-                "to_date": to_date
+                "from_date": allocation_data["from_date"],
+                "to_date": allocation_data["to_date"]
             })
     
     saveData(MEMBERS_FILE, members)
@@ -149,7 +179,7 @@ def allocateBook(member_id: int, book_isbn: str, from_date: str, to_date: str):
     return {"message": "Success"}
 
 
-@app.put("/deallocateBook/{book_isbn}&{member_id}")
+@app.put("/deallocateBook/{book_isbn}/{member_id}")
 def deallocateBook(member_id: int, book_isbn: str):
     members = loadData(MEMBERS_FILE)
     books = loadData(BOOKS_FILE)

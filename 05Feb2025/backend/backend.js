@@ -223,10 +223,10 @@ app.delete('/members/:id', async (req, res) => {
 });
 
 // Book allocation routes
-app.put('/allocateBook/:isbn&:memberId', async (req, res) => {
+app.put('/allocateBook/:isbn/:memberId', async (req, res) => {
     try {
         const { isbn, memberId } = req.params;
-        const { from_date, to_date } = req.body; // Get rental period from request
+        const { from_date, to_date } = req.body;
         const membersData = await loadData(MEMBERS_FILE);
         const booksData = await loadData(BOOKS_FILE);
 
@@ -263,7 +263,7 @@ app.put('/allocateBook/:isbn&:memberId', async (req, res) => {
 });
 
 
-app.put('/deallocateBook/:isbn&:memberId', async (req, res) => {
+app.put('/deallocateBook/:isbn/:memberId', async (req, res) => {
     try {
         const { isbn, memberId } = req.params;
         const membersData = await loadData(MEMBERS_FILE);

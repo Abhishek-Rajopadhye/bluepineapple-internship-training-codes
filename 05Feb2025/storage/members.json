@@ -4,6 +4,11 @@
             "id": 1,
             "name": "Abhishek",
             "allocated_books": []
+        },
+        {
+            "id": 2,
+            "name": "M1",
+            "allocated_books": []
         }
     ]
 }
