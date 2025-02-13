@@ -19,7 +19,7 @@ function Member({member, onClose}) {
                 <ul>
                     {member.allocated_books?.map((book) => (
                     <li key={book.id} className="flex justify-between items-center border-b py-2">
-                        {book.name} ({book.from_date} - {book.to_date})
+                        {book.book_name} ({book.from_date} - {book.to_date})
                         <button className="bg-red-500 text-white px-2 py-1 ml-4" onClick={()=>{handleDeallocate(book.id)}}>Deallocate</button>
                     </li>
                     ))}

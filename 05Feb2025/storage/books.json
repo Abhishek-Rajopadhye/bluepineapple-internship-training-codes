@@ -12,7 +12,7 @@
             "name": "BookAnon",
             "author": "Author1",
             "total_copies": 10,
-            "allocated_copies": 0
+            "allocated_copies": 1
         },
         {
             "isbn": "1234clkhdipr9ysdnk",

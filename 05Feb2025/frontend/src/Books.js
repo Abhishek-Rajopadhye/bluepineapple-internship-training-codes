@@ -9,16 +9,19 @@ function Books() {
     const [editMode, setEditMode] = useState(false);
     const [allocateMode, setAllocateMode] = useState(false);
     const [formData, setFormData] = useState({ isbn: "", name: "", author: "", total_copies: 0, allocated_copies:0 });
-    const [allocationData, setAllocationData] = useState({ member_id: "", from_date: "", to_date: "" });
+    const [allocationData, setAllocationData] = useState({ member_id: "", book_name:"", from_date: "", to_date: "" });
     const [selectedBook, setSelectedBook] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:8000/books")
-        .then((res) => res.json())
-        .then((data) => setBooks(data));
-        fetch("http://localhost:8000/members")
-        .then((res) => res.json())
-        .then((data) => setMembers(data.members));
+        async function fetchData(){
+            await fetch("http://localhost:8000/books")
+            .then((res) => res.json())
+            .then((data) => setBooks(data));
+            await fetch("http://localhost:8000/members")
+            .then((res) => res.json())
+            .then((data) => setMembers(data.members));    
+        }
+        fetchData();
     }, []);
 
     const handleAddOrEditBook = () => {
@@ -42,17 +45,18 @@ function Books() {
 
     const handleAllocate = (book) => {
         setSelectedBook(book);
+        setAllocationData({ ...allocationData, book_name: book.name });
         setAllocateMode(true);
     };
 
-    const allocateBook = () => {
-        fetch(`http://localhost:8000/allocateBook/${selectedBook.isbn}/${allocationData.member_id}`, {
+    const allocateBook = async () => {
+        await fetch(`http://localhost:8000/allocateBook/${selectedBook.isbn}/${allocationData.member_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(allocationData)
+        body: JSON.stringify({ from_date: allocationData.from_date, to_date: allocationData.to_date, book_name: selectedBook.name })
         }).then(() => {
-        setAllocateMode(false);
-        window.location.reload();
+            setAllocateMode(false);
+            window.location.reload();
         });
     };
 
@@ -91,7 +95,7 @@ function Books() {
         <br/>
         <button className="bg-green-500 text-white px-4 py-2 mb-4" onClick={() => { setEditMode(false); setShowModal(true); }}>Add Book</button>
 
-        {showDetails && selectedBook && <Book book={selectedBook.isbn} onClose={() => {
+        {showDetails && selectedBook && <Book book={selectedBook} onClose={() => {
             setSelectedBook(null);
             setShowDetails(false);
             }} />}

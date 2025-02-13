@@ -26,6 +26,7 @@ app.add_middleware(
 
 class AllocationDetails(BaseModel):
     id: str
+    book_name: str
     from_date: str
     to_date: str
 
@@ -149,31 +150,31 @@ def deleteMember(member_id):
     members["members"].remove(memberToDelete)
     return "Success"
 
-@app.put("/allocateBook/{book_isbn}/{member_id}")
-def allocateBook( book_isbn: str, allocation_data: Dict):
+@app.put("/allocateBook/{book_isbn}/{to_member_id}")
+def allocateBook(book_isbn: str, to_member_id: int, allocation_data: Dict):
     members = loadData(MEMBERS_FILE)
     books = loadData(BOOKS_FILE)
+    for book in books["books"]:
+        if book["isbn"] == book_isbn:
+            if(book["allocated_copies"] >= book["total_copies"]):
+                return {"error": "All copies of the book are already allocated"}
+            else:
+                book["allocated_copies"] += 1
     
     for member in members["members"]:
-        if member["id"] == member_id:
-            # Check if the book is already allocated
-            for book in member["allocated_books"]:
-                if book["id"] == book_isbn:
+        if member["id"] == to_member_id:
+            for allocated_book in member["allocated_books"]:
+                if allocated_book["id"] == book_isbn:
                     return {"error": "Book already allocated to this member"}
-
-            # Append new allocation
+            
             member["allocated_books"].append({
                 "id": book_isbn,
+                "book_name": allocation_data["book_name"],
                 "from_date": allocation_data["from_date"],
                 "to_date": allocation_data["to_date"]
             })
-    
-    saveData(MEMBERS_FILE, members)
-    
-    for book in books["books"]:
-        if book["isbn"] == book_isbn:
-            book["allocated_copies"] += 1
-    
+
+    saveData(MEMBERS_FILE, members)    
     saveData(BOOKS_FILE, books)
 
     return {"message": "Success"}
@@ -195,7 +196,6 @@ def deallocateBook(member_id: int, book_isbn: str):
             member["allocated_books"] = [
                 book for book in member["allocated_books"] if book["id"] != book_isbn
             ]
-
     saveData(MEMBERS_FILE, members)
-    
+
     return {"message": "Success"}
