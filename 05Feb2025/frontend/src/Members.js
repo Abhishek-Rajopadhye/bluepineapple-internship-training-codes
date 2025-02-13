@@ -3,6 +3,8 @@ import { Member } from "./Member";
 
 function Members() {
     const [members, setMembers] = useState([]);
+    const [showDetails, setShowDetails] = useState(false);
+    const [selectedMember, setSelectedMember] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({id: -1, name: "" , allocated_books: []});
@@ -36,6 +38,11 @@ function Members() {
         
     };
 
+    const handleShowDetails = (member) => {
+        setSelectedMember(member);
+        setShowDetails(true);
+      };
+
     const handleEdit = (member) => {
         setFormData(member);
         setEditMode(true);
@@ -45,7 +52,6 @@ function Members() {
     return (
         <div>
         <h2 className="text-xl font-bold mb-4">Members</h2>
-        <button className="bg-green-500 text-white px-4 py-2 mb-4" onClick={() => { setEditMode(false); setShowModal(true); }}>Add Member</button>
         <table className="w-full border-collapse border border-gray-300">
             <thead>
             <tr className="bg-gray-100">
@@ -57,9 +63,7 @@ function Members() {
             <tbody>
             {members.map((member) => (
                 <tr key={member.id} className="border">
-                <td className="p-2" onClick={() => {
-                    <Member member_id={member.id} />
-                }}>{member.name}</td>
+                <td className="p-2 text-blue-500 cursor-pointer" onClick={() => handleShowDetails(member)}>{member.name}</td>
                 <td className="p-2">{member.allocated_books.length}</td>
                 <td className="p-2">
                     <button className="bg-yellow-500 text-white px-2 py-1 mr-2" onClick={() => handleEdit(member)}>Edit</button>
@@ -69,13 +73,20 @@ function Members() {
             ))}
             </tbody>
         </table>
+        <br/>
+        <button className="bg-green-500 text-white px-4 py-2 mb-4" onClick={() => { setEditMode(false); setShowModal(true); }}>Add Member</button>
+        {showDetails && selectedMember && <Member member={selectedMember} onClose={() => {
+            setSelectedMember(null);
+            setShowDetails(false);
+            }}/>
+        }
         {showModal && (
-            <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg">
+            <div className="fixed border inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white border p-6 rounded-lg">
                 <h2 className="text-lg font-bold mb-4">{editMode ? "Edit Member" : "Add Member"}</h2>
                 <input className="border p-2 w-full mb-2" placeholder="Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                 <div className="flex justify-end">
-                <button className="bg-gray-400 text-white px-4 py-2 mr-2" onClick={() => setShowModal(false)}>Cancel</button>
+                <button className="bg-red-500 text-white px-4 py-2 mr-2" onClick={() => setShowModal(false)}>Cancel</button>
                 <button className="bg-blue-500 text-white px-4 py-2" onClick={handleAddOrEditMember}>{editMode ? "Update" : "Add"}</button>
                 </div>
             </div>

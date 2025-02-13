@@ -1,16 +1,8 @@
-import { useState, useEffect } from "react";
 
-function Member({member_id}) {
-    const [member, setMember] = useState({ "id": 0, "member_name": "", "allocated_books": [] });
-
-    useEffect(() => {
-        fetch("http://localhost:8000/members/"+member_id)
-        .then((res) => res.json())
-        .then((data) => setMember(data));
-    }, [member_id]);
+function Member({member, onClose}) {
 
     const handleDeallocate = (isbn) => {
-        fetch(`http://localhost:8000/deallocateBook/${isbn}/${member_id}`, {
+        fetch(`http://localhost:8000/deallocateBook/${isbn}/${member.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
         }).then(() => {
@@ -19,22 +11,20 @@ function Member({member_id}) {
     }
 
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-            <h2 className="text-xl font-bold mb-4">Member</h2>
-            <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Name</label>
-                <p className="mt-1 text-sm text-gray-900">{member.member_name}</p>
-            </div>
-            <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Allocated Books</label>
+        <div className="fixed border inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white border p-6 rounded-lg">
+                <h2 className="text-lg font-bold mb-4">Member Details</h2>
+                <p><strong>Name:</strong> {member.name}</p>
+                <h3 className="text-md font-bold mt-4">Allocated Books:</h3>
                 <ul>
-                    {member.allocated_books.map((book) => (
-                        <li key={book.isbn} className="flex justify-between items-center p-2 border-b">
-                            <p>{book.name}</p>
-                            <button onClick={() => handleDeallocate(book.isbn)} className="bg-red-500 text-white px-2 py-1">Deallocate</button>
-                        </li>
+                    {member.allocated_books?.map((book) => (
+                    <li key={book.id} className="flex justify-between items-center border-b py-2">
+                        {book.name} ({book.from_date} - {book.to_date})
+                        <button className="bg-red-500 text-white px-2 py-1 ml-4" onClick={()=>{handleDeallocate(book.id)}}>Deallocate</button>
+                    </li>
                     ))}
                 </ul>
+                <button className="bg-red-500 text-white px-4 py-2 mt-4" onClick={onClose}>Close</button>
             </div>
         </div>
     );

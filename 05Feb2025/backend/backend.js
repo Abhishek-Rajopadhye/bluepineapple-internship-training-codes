@@ -251,7 +251,7 @@ app.put('/allocateBook/:isbn/:memberId', async (req, res) => {
         }
 
         // Allocate book
-        member.allocated_books.push({ id: isbn, from_date, to_date });
+        member.allocated_books.push({ id: isbn, from_date:from_date, to_date:to_date });
         book.allocated_copies += 1;
 
         await saveData(MEMBERS_FILE, membersData);
