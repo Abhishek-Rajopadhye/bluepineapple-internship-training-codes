@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Book } from "./Book";
 
-function Books() {
+function Books({}) {
     const [books, setBooks] = useState([]);
     const [members, setMembers] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -54,6 +55,14 @@ function Books() {
         });
     };
 
+    const showDetails = (book) => {
+        setSelectedBook(book);
+        setShowModal(false);
+        setEditMode(false);
+        setAllocateMode(false);
+        return <Book book={book} />
+    };
+
     return (
         <div>
         <h2 className="text-xl font-bold mb-4">Books</h2>
@@ -71,7 +80,9 @@ function Books() {
             <tbody>
             {books.map((book) => (
                 <tr key={book.isbn} className="border">
-                <td className="p-2">{book.name}</td>
+                <td className="p-2" onClick={() => {
+                    showDetails(book);
+                }}>{book.name}</td>
                 <td className="p-2">{book.author}</td>
                 <td className="p-2">{book.allocated_copies}</td>
                 <td className="p-2">{book.total_copies}</td>

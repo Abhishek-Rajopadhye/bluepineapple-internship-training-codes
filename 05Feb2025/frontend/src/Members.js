@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Member } from "./Member";
 
 function Members() {
     const [members, setMembers] = useState([]);
@@ -56,7 +57,9 @@ function Members() {
             <tbody>
             {members.map((member) => (
                 <tr key={member.id} className="border">
-                <td className="p-2">{member.name}</td>
+                <td className="p-2" onClick={() => {
+                    <Member member_id={member.id} />
+                }}>{member.name}</td>
                 <td className="p-2">{member.allocated_books.length}</td>
                 <td className="p-2">
                     <button className="bg-yellow-500 text-white px-2 py-1 mr-2" onClick={() => handleEdit(member)}>Edit</button>
