@@ -226,7 +226,7 @@ app.delete('/members/:id', async (req, res) => {
 app.put('/allocateBook/:isbn/:memberId', async (req, res) => {
     try {
         const { isbn, memberId } = req.params;
-        const { from_date, to_date } = req.body;
+        const { from_date, to_date, book_name } = req.body;
         const membersData = await loadData(MEMBERS_FILE);
         const booksData = await loadData(BOOKS_FILE);
 
@@ -251,7 +251,7 @@ app.put('/allocateBook/:isbn/:memberId', async (req, res) => {
         }
 
         // Allocate book
-        member.allocated_books.push({ id: isbn, from_date:from_date, to_date:to_date });
+        member.allocated_books.push({ id: isbn, book_name: book_name, from_date: from_date, to_date: to_date });
         book.allocated_copies += 1;
 
         await saveData(MEMBERS_FILE, membersData);
@@ -261,7 +261,6 @@ app.put('/allocateBook/:isbn/:memberId', async (req, res) => {
         res.status(500).json({ error: 'Failed to allocate book' });
     }
 });
-
 
 app.put('/deallocateBook/:isbn/:memberId', async (req, res) => {
     try {

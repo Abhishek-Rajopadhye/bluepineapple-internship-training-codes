@@ -5,7 +5,7 @@
             "name": "Abhishek",
             "allocated_books": [
                 {
-                    "id": "NOWK39904u-12",
+                    "id": "NOWK39904u12",
                     "book_name": "BookAnon",
                     "from_date": "2025-02-05",
                     "to_date": "2025-02-12"
