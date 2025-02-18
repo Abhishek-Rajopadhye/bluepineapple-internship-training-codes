@@ -15,7 +15,7 @@ from database import loadData, saveData, ALLOCATIONS_FILE, BOOKS_FILE
 router = APIRouter(prefix="/allocations", tags=["Allocations"])
 
 @router.get("/")
-def getAllocations():
+def getAllocations() -> dict:
     """
     Get all allocations.
     """
@@ -23,7 +23,7 @@ def getAllocations():
     return allocations["allocations"]
 
 @router.post("/")
-def allocateBook(allocation_data: AllocationDetails):
+def allocateBook(allocation_data: AllocationDetails) -> dict:
     """
     Allocate a book to a member.
 
@@ -59,7 +59,7 @@ def allocateBook(allocation_data: AllocationDetails):
     return {"message": "Book allocated successfully"}
 
 @router.delete("/{book_isbn}/{member_id}")
-def deallocateBook(book_isbn: str, member_id: int):
+def deallocateBook(book_isbn: str, member_id: int) -> dict:
     """
     Deallocate a book from a member.
 

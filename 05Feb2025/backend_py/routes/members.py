@@ -17,7 +17,7 @@ from database import loadData, saveData, MEMBERS_FILE
 router = APIRouter(prefix="/members", tags=["Members"])
 
 @router.get("/")
-def getMembers():
+def getMembers() -> dict:
     """
     Get all members.
     
@@ -27,7 +27,7 @@ def getMembers():
     return loadData(MEMBERS_FILE)
 
 @router.get("/{member_id}")
-def getMember(member_id: int):
+def getMember(member_id: int) -> dict:
     """
     Get a member by ID.
     
@@ -49,7 +49,7 @@ def getMember(member_id: int):
     return member
 
 @router.post("/")
-def addMember(member_data: Member):
+def addMember(member_data: Member) -> dict:
     """
     Add a new member.
     
@@ -71,7 +71,7 @@ def addMember(member_data: Member):
     return new_member
 
 @router.put("/{member_id}")
-def updateMember(member_id: int, memberData: Member):
+def updateMember(member_id: int, memberData: Member) -> dict:
     """
     Update a member by ID.
     
@@ -97,7 +97,7 @@ def updateMember(member_id: int, memberData: Member):
     return {"message": "Member updated successfully"}
 
 @router.delete("/{member_id}")
-def deleteMember(member_id: int):
+def deleteMember(member_id: int) -> dict:
     """
     Delete a member by ID.
     

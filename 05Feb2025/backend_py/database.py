@@ -8,7 +8,7 @@ BOOKS_FILE = "storage/books.json"
 MEMBERS_FILE = "storage/members.json"
 ALLOCATIONS_FILE = "storage/allocated_books.json"
 
-def loadData(fileName):
+def loadData(fileName: str) -> dict:
     """
     Load data from a JSON file.
  
@@ -21,7 +21,7 @@ def loadData(fileName):
     with open(fileName, "r") as fileData:
         return json.load(fileData)
 
-def saveData(fileName, data):
+def saveData(fileName: str, data: dict) -> None:
     """
     Save data to a JSON file.
  

@@ -17,7 +17,7 @@ from database import loadData, saveData, BOOKS_FILE
 router = APIRouter(prefix="/books", tags=["Books"])
 
 @router.get("/")
-def getBooks():
+def getBooks() -> dict:
     """
     Get all books.
     
@@ -28,7 +28,7 @@ def getBooks():
     return books["books"]
 
 @router.get("/{book_isbn}")
-def getBook(book_isbn: str):
+def getBook(book_isbn: str) -> dict:
     """
     Get a book by ISBN.
     
@@ -72,7 +72,7 @@ def addBook(book: Book):
     return book
 
 @router.put("/{book_isbn}")
-def updateBook(book_isbn: str, bookData: Book):
+def updateBook(book_isbn: str, bookData: Book) -> dict:
     """
     Update a book by ISBN.
     
@@ -103,7 +103,7 @@ def updateBook(book_isbn: str, bookData: Book):
     return {"message": "Book updated successfully"}
 
 @router.delete("/{book_isbn}")
-def deleteBook(book_isbn: str):
+def deleteBook(book_isbn: str) -> dict:
     """
     Delete a book by ISBN.
     
