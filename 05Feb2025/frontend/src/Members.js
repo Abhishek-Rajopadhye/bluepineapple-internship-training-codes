@@ -119,6 +119,32 @@ function Members() {
     };
 
     /**
+     * Handles deleting a member.
+     * @function
+     * @name handleDelete
+     * @param {Object} member - The member object to delete.
+     * @returns {Promise<void>}
+     * @async
+     */
+    const handleDelete = async (member) => {
+        try {
+            const response = await fetch(`http://localhost:8000/members/${member.id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error("Failed to delete member:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error occurred while deleting member:", error);
+        }
+    };
+
+
+    /**
      * Gets the count of allocated books for a member.
      * @function
      * @name getAllocatedBooksCount
@@ -147,7 +173,7 @@ function Members() {
                             <td className="p-2">{getAllocatedBooksCount(member.id)}</td>
                             <td className="p-2">
                                 <button className="bg-yellow-500 text-white px-2 py-1 mr-2" onClick={() => handleEdit(member)}>Edit</button>
-                                <button className="bg-red-500 text-white px-2 py-1">Remove</button>
+                                <button className="bg-red-500 text-white px-2 py-1" onClick={() => handleDelete(member)}>Remove</button>
                             </td>
                         </tr>
                     ))}

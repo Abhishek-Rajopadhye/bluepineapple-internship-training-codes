@@ -71,17 +71,35 @@ function Books() {
      * Handles the addition or editing of a book.
      * @function
      * @name handleAddOrEditBook
+     * @async
      * @returns {void}
      */
-    const handleAddOrEditBook = () => {
+    const handleAddOrEditBook = async () => {
         const method = editMode ? "PUT" : "POST";
         const url = editMode ? `http://localhost:8000/books/${formData.isbn}` : "http://localhost:8000/books";
-        fetch(url, {
+        await fetch(url, {
             method,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData)
         }).then(() => {
             setShowModal(false);
+            window.location.reload();
+        });
+    };
+
+    /**
+     * Deletes a book.
+     * @function
+     * @name handleDelete
+     * @param {Object} book - The book to be deleted.
+     * @returns {Promise<void>}
+     * @async
+     */
+    const handleDelete = async (book) => {
+        await fetch(`http://localhost:8000/books/${book.isbn}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+        }).then(() => {
             window.location.reload();
         });
     };
@@ -116,6 +134,7 @@ function Books() {
      * @function
      * @name allocateBook
      * @returns {Promise<void>}
+     * @async
      */
     const allocateBook = async () => {
         await fetch(`http://localhost:8000/allocations`, {
@@ -153,7 +172,7 @@ function Books() {
                             <td className="p-2">{book.total_copies}</td>
                             <td className="p-2">
                                 <button className="bg-yellow-500 text-white px-2 py-1 mr-2" onClick={() => handleEdit(book)}>Edit</button>
-                                <button className="bg-red-500 text-white px-2 py-1 mr-2">Delete</button>
+                                <button className="bg-red-500 text-white px-2 py-1 mr-2" onClick={() => handleDelete(book)}>Delete</button>
                                 <button className="bg-blue-500 text-white px-2 py-1" onClick={() => handleAllocate(book)}>Allocate</button>
                             </td>
                         </tr>
