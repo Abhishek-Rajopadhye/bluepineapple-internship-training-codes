@@ -2,6 +2,11 @@
  * Module for handling file I/O operations.
  * @module file_handling
  * @requires fs
+ * @exports loadFile
+ * @exports saveFile
+ * @exports BOOKS_FILE
+ * @exports MEMBERS_FILE
+ * @exports ALLOCATIONS
  */
 
 const fs = require('fs');

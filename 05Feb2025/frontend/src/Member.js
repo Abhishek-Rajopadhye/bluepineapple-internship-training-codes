@@ -3,6 +3,7 @@
  * @component
  * @name Member
  * @requires react
+ * @export Member
  */
 import { useState, useEffect } from "react";
 

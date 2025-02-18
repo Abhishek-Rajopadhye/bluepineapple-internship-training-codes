@@ -3,6 +3,7 @@
  * @module routes/allocations
  * @requires express.Router()
  * @requires file_handling
+ * @exports router
  */
 
 const express = require('express');

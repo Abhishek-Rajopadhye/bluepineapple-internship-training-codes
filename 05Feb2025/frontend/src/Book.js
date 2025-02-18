@@ -3,6 +3,7 @@
  * @module
  * @name Book
  * @requires react
+ * @exports Book
  */
 
 import { useState, useEffect } from "react";
