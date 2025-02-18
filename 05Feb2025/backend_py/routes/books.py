@@ -17,12 +17,12 @@ from database import loadData, saveData, BOOKS_FILE
 router = APIRouter(prefix="/books", tags=["Books"])
 
 @router.get("/")
-def getBooks() -> dict:
+def getBooks() -> list:
     """
     Get all books.
     
     Returns:
-        dict: The books data.
+        list: The books data.
     """
     books = loadData(BOOKS_FILE)
     return books["books"]

@@ -4,9 +4,9 @@ This module provides functions to load and save data from JSON files.
 
 import json
 
-BOOKS_FILE = "storage/books.json"
-MEMBERS_FILE = "storage/members.json"
-ALLOCATIONS_FILE = "storage/allocated_books.json"
+BOOKS_FILE = "../storage/books.json"
+MEMBERS_FILE = "../storage/members.json"
+ALLOCATIONS_FILE = "../storage/allocated_books.json"
 
 def loadData(fileName: str) -> dict:
     """

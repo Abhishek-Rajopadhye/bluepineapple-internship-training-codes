@@ -56,7 +56,7 @@ function Members() {
         async function fetchData() {
             await fetch("http://localhost:8000/members")
                 .then((res) => res.json())
-                .then((data) => setMembers(data.members));
+                .then((data) => setMembers(data));
             await fetch("http://localhost:8000/allocations")
                 .then((res) => res.json())
                 .then((data) => setAllocations(data));

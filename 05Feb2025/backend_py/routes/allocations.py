@@ -15,7 +15,7 @@ from database import loadData, saveData, ALLOCATIONS_FILE, BOOKS_FILE
 router = APIRouter(prefix="/allocations", tags=["Allocations"])
 
 @router.get("/")
-def getAllocations() -> dict:
+def getAllocations() -> list:
     """
     Get all allocations.
     """

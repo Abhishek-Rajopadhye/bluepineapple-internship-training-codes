@@ -17,14 +17,15 @@ from database import loadData, saveData, MEMBERS_FILE
 router = APIRouter(prefix="/members", tags=["Members"])
 
 @router.get("/")
-def getMembers() -> dict:
+def getMembers() -> list:
     """
     Get all members.
     
     Returns:
-        dict: The members data.
+        list: The members data.
     """
-    return loadData(MEMBERS_FILE)
+    members = loadData(MEMBERS_FILE)
+    return members["members"]
 
 @router.get("/{member_id}")
 def getMember(member_id: int) -> dict:

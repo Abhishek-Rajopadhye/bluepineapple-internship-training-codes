@@ -1,25 +1,25 @@
 {
-    "books": [
-        {
-            "isbn": "NCOirnwpdoj1u23094",
-            "name": "Book1",
-            "author": "Author2",
-            "total_copies": 10,
-            "allocated_copies": 0
-        },
-        {
-            "isbn": "NOWK39904u12",
-            "name": "BookAnon",
-            "author": "Author1",
-            "total_copies": 10,
-            "allocated_copies": 0
-        },
-        {
-            "isbn": "1234clkhdipr9ysdnk",
-            "name": "BookIsBook",
-            "author": "psdon",
-            "total_copies": 10,
-            "allocated_copies": 0
-        }
-    ]
+  "books": [
+    {
+      "isbn": "NCOirnwpdoj1u23094",
+      "name": "Book1",
+      "author": "Author2",
+      "total_copies": 10,
+      "allocated_copies": 1
+    },
+    {
+      "isbn": "NOWK39904u12",
+      "name": "BookAnon",
+      "author": "Author1",
+      "total_copies": 10,
+      "allocated_copies": 0
+    },
+    {
+      "isbn": "1234clkhdipr9ysdnk",
+      "name": "BookIsBook",
+      "author": "psdon",
+      "total_copies": 10,
+      "allocated_copies": 0
+    }
+  ]
 }
