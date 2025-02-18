@@ -5,7 +5,7 @@
             "name": "Book1",
             "author": "Author2",
             "total_copies": 10,
-            "allocated_copies": 1
+            "allocated_copies": 0
         },
         {
             "isbn": "NOWK39904u12",
