@@ -59,9 +59,6 @@ def addBook(book: Book):
     
     Returns:
         dict: The book details.
-
-    Raises:
-        HTTPException: If the book is not found.
     """
     books = loadData(BOOKS_FILE)
     jsonBookData = jsonable_encoder(book)
