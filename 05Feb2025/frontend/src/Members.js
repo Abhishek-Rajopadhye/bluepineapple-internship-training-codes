@@ -79,7 +79,7 @@ function Members() {
             const response = await fetch(url, {
                 method,
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ member_name: formData.name })
+                body: JSON.stringify(formData)
             });
 
             if (response.ok) {

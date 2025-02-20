@@ -64,7 +64,8 @@ def addMember(member_data: Member) -> dict:
 
     # Generate new member ID
     new_member_id = members["members"][-1]["id"] + 1 if members["members"] else 1
-    new_member = jsonable_encoder({"id": new_member_id, "name": member_data.name})
+    member_data.id = new_member_id
+    new_member = jsonable_encoder(member_data)
 
     members["members"].append(new_member)
     saveData(MEMBERS_FILE, members)
