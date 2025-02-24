@@ -12,7 +12,7 @@ def loadData(fileName: str) -> dict:
     """
     Load data from a JSON file.
  
-    Args:
+    Parameters:
         fileName (str): The name of the file to load.
 
     Returns:
@@ -25,7 +25,7 @@ def saveData(fileName: str, data: dict) -> None:
     """
     Save data to a JSON file.
  
-    Args:
+    Parameters:
         fileName (str): The name of the file to save.
         data (dict): The data to save.
     """

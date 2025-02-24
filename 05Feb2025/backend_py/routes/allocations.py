@@ -27,7 +27,7 @@ def allocateBook(allocation_data: AllocationDetails) -> dict:
     """
     Allocate a book to a member.
 
-    Args:
+    Parameters:
         allocation_data (AllocationDetails): Details of the book allocation.
 
     Returns:
@@ -63,7 +63,7 @@ def deallocateBook(book_isbn: str, member_id: int) -> dict:
     """
     Deallocate a book from a member.
 
-    Args:
+    Parameters:
         book_isbn (str): The ISBN of the book to deallocate.
         member_id (int): The ID of the member.
 

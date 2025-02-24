@@ -32,7 +32,7 @@ def getBook(book_isbn: str) -> dict:
     """
     Get a book by ISBN.
     
-    Args:
+    Parameters:
         book_isbn (str): The ISBN of the book to retrieve.
     
     Returns:
@@ -54,7 +54,7 @@ def addBook(book: Book):
     """
     Add a new book.
     
-    Args:
+    Parameters:
         book (Book): The book details to add.
     
     Returns:
@@ -73,7 +73,7 @@ def updateBook(book_isbn: str, bookData: Book) -> dict:
     """
     Update a book by ISBN.
     
-    Args:
+    Parameters:
         book_isbn (str): The ISBN of the book to update.
         bookData (Book): The updated book details.
     
@@ -104,7 +104,7 @@ def deleteBook(book_isbn: str) -> dict:
     """
     Delete a book by ISBN.
     
-    Args:
+    Parameters:
         book_isbn (str): The ISBN of the book to delete.
     
     Returns:

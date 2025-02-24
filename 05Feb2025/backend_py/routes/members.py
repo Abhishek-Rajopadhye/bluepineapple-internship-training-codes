@@ -32,7 +32,7 @@ def getMember(member_id: int) -> dict:
     """
     Get a member by ID.
     
-    Args:
+    Parameters:
         member_id (int): The ID of the member to retrieve.
     
     Returns:
@@ -54,7 +54,7 @@ def addMember(member_data: Member) -> dict:
     """
     Add a new member.
     
-    Args:
+    Parameters:
         member_data (Member): The member details to add.
     
     Returns:
@@ -77,7 +77,7 @@ def updateMember(member_id: int, memberData: Member) -> dict:
     """
     Update a member by ID.
     
-    Args:
+    Parameters:
         member_id (int): The ID of the member to update.
         memberData (Member): The updated member details.
     
@@ -103,7 +103,7 @@ def deleteMember(member_id: int) -> dict:
     """
     Delete a member by ID.
     
-    Args:
+    Parameters:
         member_id (int): The ID of the member to delete.
     
     Returns:
