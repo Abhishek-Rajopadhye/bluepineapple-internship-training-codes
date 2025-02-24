@@ -23,9 +23,14 @@ def getBooks() -> list:
     
     Returns:
         list: The books data.
+    Raises:
+        500: Internal Server Error. If there is an error loading the data
     """
-    books = loadData(BOOKS_FILE)
-    return books["books"]
+    try:
+        books = loadData(BOOKS_FILE)
+        return books["books"]
+    except Exception as exception:
+        raise HTTPException(status_code=500, detail=str(exception))
 
 @router.get("/{book_isbn}")
 def getBook(book_isbn: str) -> dict:

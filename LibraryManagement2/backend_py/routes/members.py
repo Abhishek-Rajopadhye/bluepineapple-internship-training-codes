@@ -23,9 +23,16 @@ def getMembers() -> list:
     
     Returns:
         list: The members data.
+    
+    Raises:
+        500: Internal Server Error. If there is any error while retrieving all the members.
     """
-    members = loadData(MEMBERS_FILE)
-    return members["members"]
+    try:
+        members = loadData(MEMBERS_FILE)
+        return members["members"]
+    except Exception as exception:
+        raise HTTPException(status_code=500, detail=str(exception))
+
 
 @router.get("/{member_id}")
 def getMember(member_id: int) -> dict:
@@ -39,15 +46,20 @@ def getMember(member_id: int) -> dict:
         dict: The member details.
     
     Raises:
-        HTTPException: If the member is not found.
+        404: If the member is not found.
+        500: Internal Server Error. If there is any error when retrieving a specified member.
     """
-    members = loadData(MEMBERS_FILE)
-    member = next((m for m in members["members"] if m["id"] == member_id), None)
+    try:
+        members = loadData(MEMBERS_FILE)
+        member = next((m for m in members["members"] if m["id"] == member_id), None)
 
-    if not member:
-        raise HTTPException(status_code=404, detail="Member not found")
+        if not member:
+            raise HTTPException(status_code=404, detail="Member not found")
 
-    return member
+        return member
+    except Exception as exception:
+        raise HTTPException(status_code=500, detail=str(exception))
+
 
 @router.post("/")
 def addMember(member_data: Member) -> dict:
@@ -59,18 +71,25 @@ def addMember(member_data: Member) -> dict:
     
     Returns:
         dict: The member details.
+        
+    Raises:
+        500: Internal Server Error. If there is any error while adding a new memeber.
     """
-    members = loadData(MEMBERS_FILE)
+    try:
+        members = loadData(MEMBERS_FILE)
 
-    # Generate new member ID
-    new_member_id = members["members"][-1]["id"] + 1 if members["members"] else 1
-    member_data.id = new_member_id
-    new_member = jsonable_encoder(member_data)
+        # Generate new member ID
+        new_member_id = members["members"][-1]["id"] + 1 if members["members"] else 1
+        member_data.id = new_member_id
+        new_member = jsonable_encoder(member_data)
 
-    members["members"].append(new_member)
-    saveData(MEMBERS_FILE, members)
+        members["members"].append(new_member)
+        saveData(MEMBERS_FILE, members)
 
-    return new_member
+        return new_member
+    except Exception as exception:
+        raise HTTPException(status_code=500, detail=str(exception))
+
 
 @router.put("/{member_id}")
 def updateMember(member_id: int, memberData: Member) -> dict:
@@ -85,18 +104,22 @@ def updateMember(member_id: int, memberData: Member) -> dict:
         dict: Success message.
     
     Raises:
-        HTTPException: If the member is not found.
+        404: If the member is not found.
+        500: Internal Server Error. If there is any error while updating the member.
     """
-    members = loadData(MEMBERS_FILE)
-    member = next((m for m in members["members"] if m["id"] == member_id), None)
+    try:
+        members = loadData(MEMBERS_FILE)
+        member = next((m for m in members["members"] if m["id"] == member_id), None)
 
-    if not member:
-        raise HTTPException(status_code=404, detail="Member not found")
+        if not member:
+            raise HTTPException(status_code=404, detail="Member not found")
 
-    member["name"] = memberData.name
-    saveData(MEMBERS_FILE, members)
+        member["name"] = memberData.name
+        saveData(MEMBERS_FILE, members)
 
-    return {"message": "Member updated successfully"}
+        return {"message": "Member updated successfully"}
+    except Exception as exception:
+        raise HTTPException(status_code=500, detail=str(exception))
 
 @router.delete("/{member_id}")
 def deleteMember(member_id: int) -> dict:
@@ -110,15 +133,19 @@ def deleteMember(member_id: int) -> dict:
         dict: Success message.
     
     Raises:
-        HTTPException: If the member is not found.
+        404: If the member is not found.
+        500: Internal Server Error. If there is any error while deleting the member.
     """
-    members = loadData(MEMBERS_FILE)
-    member = next((m for m in members["members"] if m["id"] == member_id), None)
+    try:
+        members = loadData(MEMBERS_FILE)
+        member = next((m for m in members["members"] if m["id"] == member_id), None)
 
-    if not member:
-        raise HTTPException(status_code=404, detail="Member not found")
+        if not member:
+            raise HTTPException(status_code=404, detail="Member not found")
 
-    members["members"].remove(member)
-    saveData(MEMBERS_FILE, members)
+        members["members"].remove(member)
+        saveData(MEMBERS_FILE, members)
 
-    return {"message": "Member deleted successfully"}
+        return {"message": "Member deleted successfully"}
+    except Exception as exception:
+        raise HTTPException(status_code=500, detail=str(exception))
