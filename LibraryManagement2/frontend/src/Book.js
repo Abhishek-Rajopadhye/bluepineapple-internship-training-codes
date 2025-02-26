@@ -9,7 +9,11 @@
 import { useState, useEffect } from "react";
 
 /**
+ * Description:
  * Component to display book details and allocated members.
+ * Functionality:
+ * Handles the retrieval of data and sets the appropriate variables with the retrieved data.
+ * Handles the functionality of deallocating the specific book.
  * @component
  * @name Book
  * @param {Object} props - The component props.
@@ -28,7 +32,7 @@ function Book({ book, onClose }) {
     useEffect(() => {
 
         /**
-         * Fetches members data from the server.
+         * Fetches members data from the server and then stores it in members variable.
          * @function
          * @name fetchMembers
          * @returns {Promise<void>}
@@ -44,6 +48,8 @@ function Book({ book, onClose }) {
 
         /**
          * Fetches allocations data from the server.
+         * Then filters the resulting list based on book isbn.
+         * Then sets the allocated members list from the filtered list.
          * @function
          * @name fetchAllocations
          * @returns {Promise<void>}
@@ -66,7 +72,7 @@ function Book({ book, onClose }) {
     }, [book, members]);
 
     /**
-     * Deallocates a book from a member.
+     * Deallocates a book from a member by calling the /DELETE method.
      * @function
      * @name handleDeallocate
      * @param {number} member_id - The ID of the member to deallocate the book from.

@@ -14,7 +14,8 @@ import { Member } from "./Member";
 /**
  * Members component that displays a list of members, allows adding and editing members,
  * and shows details of a selected member.
- *
+ * Handles functionality to add or edit members.
+ * Handles functionality to delete members.
  * @component
  * @name Members
  *
@@ -47,7 +48,7 @@ function Members() {
     useEffect(() => {
 
         /**
-         * Fetches members and allocations data from the server.
+         * Fetches members and allocations data from the server and then sets the variables accordingly.
          * @function
          * @name fetchData
          * @returns {Promise<void>}
@@ -66,6 +67,8 @@ function Members() {
 
     /**
      * Handles adding or editing a member.
+     * Calls POST method for adding a member.
+     * Calls PUT method for editing a member.
      * @function
      * @name handleAddOrEditMember
      * @param {Object} e - The event object.
@@ -95,6 +98,8 @@ function Members() {
 
     /**
      * Shows the details of a member.
+     * Sets the selected member.
+     * Sets the toggle to show member details.
      * @function
      * @name handleShowDetails
      * @param {Object} member - The member object to show details for.
@@ -107,6 +112,7 @@ function Members() {
 
     /**
      * Handles editing a member.
+     * Sets the toggles to show edit form.
      * @function
      * @name handleEdit
      * @param {Object} member - The member object to edit.
@@ -120,6 +126,7 @@ function Members() {
 
     /**
      * Handles deleting a member.
+     * Calls the DELETE method.
      * @function
      * @name handleDelete
      * @param {Object} member - The member object to delete.
@@ -146,6 +153,7 @@ function Members() {
 
     /**
      * Gets the count of allocated books for a member.
+     * Filters the allocation data for books that have specified member id attached to it.
      * @function
      * @name getAllocatedBooksCount
      * @param {number} memberId - The ID of the member.

@@ -11,6 +11,10 @@ ALLOCATIONS_FILE = "../storage/allocated_books.json"
 def loadData(fileName: str) -> dict:
     """
     Load data from a JSON file.
+    
+    Working:
+        Opens the file.
+        Resturns the data.
  
     Parameters:
         fileName (str): The name of the file to load.
@@ -24,6 +28,10 @@ def loadData(fileName: str) -> dict:
 def saveData(fileName: str, data: dict) -> None:
     """
     Save data to a JSON file.
+    
+    Working:
+        Opens the file.
+        Dumps the data.
  
     Parameters:
         fileName (str): The name of the file to save.

@@ -12,7 +12,10 @@ import { Book } from "./Book";
 
 /**
  * Books component that manages the display, addition, editing, and allocation of books.
- * 
+ * Retrieves the data of books in database.
+ * Handles the functionality of adding and/or editing specified books.
+ * Handles the functionality of deleting a specified book.
+ * Handles the functionality of allocating a specified book to a specified member.
  * @component
  * @name Books
  * @property {Object} props - The props.
@@ -51,7 +54,7 @@ function Books() {
     useEffect(() => {
         
         /**
-         * Fetches books and members data from the server.
+         * Fetches books and members data from the server and sets the variables accordingly.
          * @function
          * @name fetchData
          * @returns {Promise<void>}
@@ -69,6 +72,8 @@ function Books() {
 
     /**
      * Handles the addition or editing of a book.
+     * Calls POST method for adding books.
+     * Calls PUT method for editing books.
      * @function
      * @name handleAddOrEditBook
      * @async
@@ -89,6 +94,7 @@ function Books() {
 
     /**
      * Deletes a book.
+     * Calls DELETE method.
      * @function
      * @name handleDelete
      * @param {Object} book - The book to be deleted.
@@ -106,6 +112,7 @@ function Books() {
 
     /**
      * Sets the form data for editing a book.
+     * Sets variables/toggles for allowing the edit form to be rendered.
      * @function
      * @name handleEdit
      * @param {Object} book - The book to be edited.
@@ -118,6 +125,8 @@ function Books() {
     };
     /**
      * Sets the allocation data for a book.
+     * Sets the selected book.
+     * Sets the toggle for allocation form.
      * @function
      * @name handleAllocate
      * @param {Object} book - The book to be allocated.
@@ -131,6 +140,8 @@ function Books() {
 
     /**
      * Allocates a book to a member.
+     * Calls the POST method to allocate a book to a member.
+     * Then resets the toggle to show the allocation form.
      * @function
      * @name allocateBook
      * @returns {Promise<void>}

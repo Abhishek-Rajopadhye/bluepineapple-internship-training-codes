@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 
 /**
  * Member component to display member details and allocated books.
+ * Handles functionality to deallocate the specifief book from specified user.
  * @component
  * @name Member
  * @param {Object} props - The component props.
@@ -22,7 +23,7 @@ function Member({ member, onClose }) {
     useEffect(() => {
 
         /**
-         * Fetches allocations data from the server.
+         * Fetches allocations data from the server and then sets the varaibles accordingly.
          * @function
          * @name fetchAllocations
          * @returns {Promise<void>}
@@ -42,6 +43,7 @@ function Member({ member, onClose }) {
 
     /**
      * Handles deallocation of a book from a member.
+     * Calls the DELETE method.
      * @function
      * @name handleDeallocate
      * @param {string} isbn - The ISBN of the book to deallocate.

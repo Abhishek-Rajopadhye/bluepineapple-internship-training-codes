@@ -19,6 +19,10 @@ def getAllocations() -> list:
     """
     Get all allocations.
     
+    Working:
+        Loads data from file.
+        Returns the data.
+    
     Returns:
         list: The allocations data.
 
@@ -34,6 +38,15 @@ def allocateBook(allocation_data: AllocationDetails) -> dict:
     """
     Allocate a book to a member.
 
+    Working:
+        Loads data from files.
+        Checks if book being allocated exists. If not exists raises error.
+        Checks if all copies of book are allocated. If all copies are allocated raises error.
+        Checks if book is already allocated to the specified memeber. If already allocated, raises error.
+        Adds the allocation details to allocation data.
+        Incrememnts counter of allocated copied of books.
+        Saves the data to the files.
+    
     Parameters:
         allocation_data (AllocationDetails): Details of the book allocation.
 
@@ -78,7 +91,15 @@ def allocateBook(allocation_data: AllocationDetails) -> dict:
 def deallocateBook(book_isbn: str, member_id: int) -> dict:
     """
     Deallocate a book from a member.
-
+    
+    Working:
+        Loads the data from the files.
+        Checks for book id/isbn in the retrieved data. If book not found raises error.
+        Filters out the allocation detail from the data. Checks if allocation data to delete is present. If it is not present raises error.
+        Reduces the allotment number for specified book.
+        Sets the data to the filtered data.
+        Saves the data to the files.
+        
     Parameters:
         book_isbn (str): The ISBN of the book to deallocate.
         member_id (int): The ID of the member.

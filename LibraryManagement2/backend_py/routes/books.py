@@ -21,6 +21,10 @@ def getBooks() -> list:
     """
     Get all books.
     
+    Working:
+        Loads the data from the file.
+        Returns the data.
+    
     Returns:
         list: The books data.
     Raises:
@@ -36,6 +40,11 @@ def getBooks() -> list:
 def getBook(book_isbn: str) -> dict:
     """
     Get a book by ISBN.
+    
+    Working:
+        Loads the data from the file.
+        Filters the data on book isbn. If book not found raises error.
+        Returns the book data.
     
     Parameters:
         book_isbn (str): The ISBN of the book to retrieve.
@@ -59,6 +68,11 @@ def addBook(book: Book):
     """
     Add a new book.
     
+    Working:
+        Loads the data from the file.
+        Appends new data to the existing data.
+        Saves the data to the file.
+    
     Parameters:
         book (Book): The book details to add.
     
@@ -77,6 +91,12 @@ def addBook(book: Book):
 def updateBook(book_isbn: str, bookData: Book) -> dict:
     """
     Update a book by ISBN.
+    
+    Working:
+        Loads the data from the file.
+        Filters the book on book isbn. If book not found raises error.
+        Changes the data of selected book.
+        Saves the data to the file.
     
     Parameters:
         book_isbn (str): The ISBN of the book to update.
@@ -108,6 +128,12 @@ def updateBook(book_isbn: str, bookData: Book) -> dict:
 def deleteBook(book_isbn: str) -> dict:
     """
     Delete a book by ISBN.
+    
+    Working:
+        Loads the data from the file.
+        Filters the data on book isbn. If book not found raises error.
+        Removes the data of selected book.
+        Saves the data to the file.
     
     Parameters:
         book_isbn (str): The ISBN of the book to delete.

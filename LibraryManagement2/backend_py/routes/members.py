@@ -21,6 +21,10 @@ def getMembers() -> list:
     """
     Get all members.
     
+    Working:
+        Loads the data from file.
+        Returns the data.
+    
     Returns:
         list: The members data.
     
@@ -38,6 +42,11 @@ def getMembers() -> list:
 def getMember(member_id: int) -> dict:
     """
     Get a member by ID.
+    
+    Working:
+        Loads data from file.
+        Filters the data by member id. If not found raises error.
+        Returns the data.
     
     Parameters:
         member_id (int): The ID of the member to retrieve.
@@ -65,6 +74,12 @@ def getMember(member_id: int) -> dict:
 def addMember(member_data: Member) -> dict:
     """
     Add a new member.
+    
+    Working:
+        Loads the data from the file.
+        Generated new member id.
+        Appends the new member data to the existing data.
+        Saves the data to the file.
     
     Parameters:
         member_data (Member): The member details to add.
@@ -96,6 +111,12 @@ def updateMember(member_id: int, memberData: Member) -> dict:
     """
     Update a member by ID.
     
+    Working:
+        Loads the data from the file.
+        Filters the data on member id. If member not found raises error.
+        Edits the data of the member.
+        Saves the data to the file.
+    
     Parameters:
         member_id (int): The ID of the member to update.
         memberData (Member): The updated member details.
@@ -125,6 +146,12 @@ def updateMember(member_id: int, memberData: Member) -> dict:
 def deleteMember(member_id: int) -> dict:
     """
     Delete a member by ID.
+    
+    Working:
+        Loads the data from the file.
+        Filters the data based on member id. If member not found raises error.
+        Removes selected member from the data.
+        Saves the data to the file.
     
     Parameters:
         member_id (int): The ID of the member to delete.
